@@ -110,8 +110,5 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8000/api/jrs
 - `frontend/src/app/jr.service.ts` apunta a `http://127.0.0.1:8000/api/jrs`.
 
 ## Prueba unitaria (opcional)
-- `frontend/src/app/jr.service.spec.ts` (en español) comprueba que el servicio se crea.
+- `frontend/src/app/jr.service.spec.ts`  comprueba que el servicio se crea.
 - Si tienes runner configurado, puedes lanzar `ng test`.
-
-## Filosofía
-Simple y directo. Sin patrones complicados. Ideal para entender un CRUD rápido y funcional. Si quieres mejorarlo, puedes añadir paginación, mensajes de éxito y un `environment.ts` para configurar la URL del backend.
