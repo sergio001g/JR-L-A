@@ -9,7 +9,7 @@ import { JrService } from '../jr.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <h2 style="margin-bottom:12px;">{{ id ? 'Editar' : 'Nuevo' }} Jr</h2>
+    <h2 style="margin-bottom:12px;">{{ id ? 'Editar nota' : 'Nueva nota' }}</h2>
     <form [formGroup]="form" (ngSubmit)="submit()" style="display:grid;gap:12px;max-width:480px;">
       <div>
         <label>Nombre</label>
@@ -22,6 +22,7 @@ import { JrService } from '../jr.service';
       <div>
         <label>Descripción</label>
         <textarea formControlName="description" rows="4" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;"></textarea>
+        <div style="text-align:right;color:#777;font-size:12px;margin-top:4px;">{{ (form.controls.description.value || '').length }} caracteres</div>
       </div>
       <div style="display:flex;gap:8px;">
         <button type="submit" [disabled]="form.invalid" style="padding:8px 12px;">Guardar</button>
@@ -46,20 +47,20 @@ export class JrFormComponent {
     const paramId = this.route.snapshot.paramMap.get('id');
     this.id = paramId ? Number(paramId) : null;
     if (this.id) {
-      this.service.get(this.id).subscribe(res => this.form.patchValue(res));
+      this.service.get(this.id).subscribe((res: any) => this.form.patchValue(res));
     }
   }
 
   submit() {
     const value = this.form.value as any;
     if (this.id) {
-      this.service.update(this.id, value).subscribe(() => this.router.navigateByUrl('/jrs'));
+      this.service.update(this.id, value).subscribe(() => this.router.navigate(['/', 'notes'], { queryParams: { ok: 'updated' } }));
     } else {
-      this.service.create(value).subscribe(() => this.router.navigateByUrl('/jrs'));
+      this.service.create(value).subscribe(() => this.router.navigate(['/', 'notes'], { queryParams: { ok: 'created' } }));
     }
   }
 
   cancel() {
-    this.router.navigateByUrl('/jrs');
+    this.router.navigateByUrl('/notes');
   }
 }

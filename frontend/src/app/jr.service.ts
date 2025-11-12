@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface Jr {
   id?: number;
@@ -10,7 +11,7 @@ export interface Jr {
 
 @Injectable({ providedIn: 'root' })
 export class JrService {
-  private baseUrl = 'http://127.0.0.1:8000/api/jrs';
+  private baseUrl = `${environment.apiBaseUrl}/jrs`;
 
   constructor(private http: HttpClient) {}
 
